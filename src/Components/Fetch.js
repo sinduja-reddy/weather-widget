@@ -29,14 +29,14 @@ componentWillReceiveProps (nextProps) {
 }
 
 
-fetchData=(u)=>{
+fetchData=(val)=>{
   this.setState({ isLoading: true });
-  let parsed=qs.parse(u)
+  let parsed=qs.parse(val)
   let parsed_place= parsed.city
   let city = typeof parsed_place==='undefined' ? 'Copenhagen': parsed_place;
   let url= `/api.php?location=${city}&degree=C`
   console.log(url);
-    axios.get(url).then(response=>{
+  axios.get(url).then(response=>{
       if(response.statusText==='OK'){
         return response.data;
       }else{
@@ -69,7 +69,6 @@ handleOnChange=(e)=>{
 handleSubmit=(e)=>{
   e.preventDefault()
   let place=this.state.inputValue
-  console.log(place)
   this.setState({inputValue:'',error:false})
   this.props.history.push({
       pathname: '/',
