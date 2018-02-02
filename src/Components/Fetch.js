@@ -44,8 +44,12 @@ fetchData=(val)=>{
       }
     }).then((res)=>{
           // check response contains html tags, if so remove the tags
-      let data= (/<\/?[^>]*>/.test(res))?res.replace(/<\/?[^>]+(>|$)/g, ""):res;
-      return JSON.parse(data);//converted it into object
+      if(/<\/?[^>]*>/.test(res)){
+        let data=res.replace(/<\/?[^>]+(>|$)/g, "")
+        return JSON.parse(data);//converted it into object
+    }else{
+        return res;
+      }
     }).then((res)=>{
       console.log(res)
       if(res.LocationName!=='false'){
